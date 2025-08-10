@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailMeal Express 🚂🍱</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+        header {
+            background-color: #FF0000;
+            color: #FFFF00;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            background-color: #FFFF00;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FF0000;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #FFFFFF;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid #FF0000;
+            background-color: #FFFFFF;
+        }
+        .menu-item {
+            border: 1px solid #FFFF00;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .menu-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+        .menu-item button {
+            background-color: #FF0000;
+            color: #FFFFFF;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #cart-items {
+            list-style: none;
+            padding: 0;
+        }
+        #cart-items li {
+            margin: 5px 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-top: 10px;
+        }
+        form input, form select {
+            padding: 5px;
+            margin-top: 5px;
+        }
+        form button {
+            background-color: #FF0000;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #FF0000;
+            color: #FFFF00;
+            padding: 10px;
+            text-align: center;
+        }
+        footer a {
+            color: #FFFF00;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>RailMeal Express 🚂🍱</h1>
+        <p>Your go-to for delicious meals delivered to your train seat!</p>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#cart">Cart & Order</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    
+    <section id="home">
+        <h2>Welcome to RailMeal Express</h2>
+        <p>Delivering fresh, hot meals to stations and trains across India. Special offer: 10% off on your first order!</p>
+        <h3>Menu Highlights</h3>
+        <ul>
+            <li>Veg Thali - ₹150</li>
+            <li>Non-Veg Thali - ₹200</li>
+            <li>Snacks like Samosa - ₹50</li>
+            <li>Beverages: Tea/Coffee - ₹20</li>
+        </ul>
+        <p>We deliver to major stations like Delhi, Mumbai, Chennai, and on popular trains like Rajdhani Express.</p>
+    </section>
+    
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <h3>Veg Thali</h3>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/100?text=Veg+Thali" alt="Veg Thali">
+            <div>
+                <h4>Veg Thali - ₹150</h4>
+                <p>Delicious vegetarian meal with rice, dal, veggies, and roti.</p>
+                <button onclick="addToCart('Veg Thali', 150)">Add to Cart</button>
+            </div>
+        </div>
+        
+        <h3>Non-Veg Thali</h3>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/100?text=Non-Veg+Thali" alt="Non-Veg Thali">
+            <div>
+                <h4>Non-Veg Thali - ₹200</h4>
+                <p>Chicken curry, rice, dal, and roti.</p>
+                <button onclick="addToCart('Non-Veg Thali', 200)">Add to Cart</button>
+            </div>
+        </div>
+        
+        <h3>Snacks</h3>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/100?text=Samosa" alt="Samosa">
+            <div>
+                <h4>Samosa (2 pcs) - ₹50</h4>
+                <p>Crispy fried snacks with potato filling.</p>
+                <button onclick="addToCart('Samosa (2 pcs)', 50)">Add to Cart</button>
+            </div>
+        </div>
+        
+        <h3>Beverages</h3>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/100?text=Tea" alt="Tea">
+            <div>
+                <h4>Tea - ₹20</h4>
+                <p>Hot masala tea.</p>
+                <button onclick="addToCart('Tea', 20)">Add to Cart</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/100?text=Coffee" alt="Coffee">
+            <div>
+                <h4>Coffee - ₹20</h4>
+                <p>Instant hot coffee.</p>
+                <button onclick="addToCart('Coffee', 20)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: ₹<span id="total-price">0</span></p>
+        
+        <h3>Delivery Information</h3>
+        <form id="order-form">
+            <label for="train-number">Train Number:</label>
+            <input type="text" id="train-number" required>
+            
+            <label for="seat">Seat Number:</label>
+            <input type="text" id="seat" required>
+            
+            <label for="station">Station:</label>
+            <select id="station" required>
+                <option value="">Select Station</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <h3>Payment Method</h3>
+            <select id="payment-method" required>
+                <option value="">Select Payment</option>
+                <option value="UPI">UPI</option>
+                <option value="Card">Credit/Debit Card</option>
+                <option value="Net Banking">Net Banking</option>
+            </select>
+            
+            <button type="button" onclick="placeOrder()">Place Order</button>
+        </form>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact & Support</h2>
+        <p>Phone: +91-1234567890</p>
+        <p>WhatsApp: +91-1234567890</p>
+        <p>Email: support@railmealexpress.com</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 RailMeal Express. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        let cart = [];
+        let total = 0;
+        
+        function addToCart(itemName, price) {
+            cart.push({ name: itemName, price: price });
+            total += price;
+            updateCart();
+        }
+        
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - ₹${item.price}`;
+                cartItems.appendChild(li);
+            });
+            document.getElementById('total-price').textContent = total;
+        }
+        
+        function placeOrder() {
+            const train = document.getElementById('train-number').value;
+            const seat = document.getElementById('seat').value;
+            const station = document.getElementById('station').value;
+            const payment = document.getElementById('payment-method').value;
+            
+            if (cart.length === 0 || !train || !seat || !station || !payment) {
+                alert('Please fill all details and add items to cart.');
+                return;
+            }
+            
+            alert(`Order placed! Total: ₹${total}\nDelivery to Train: ${train}, Seat: ${seat}, Station: ${station}\nPayment: ${payment}`);
+            // Reset cart
+            cart = [];
+            total = 0;
+            updateCart();
+            document.getElementById('order-form').reset();
+        }
+    </script>
+</body>
+</html>
